@@ -1,6 +1,9 @@
 # FlaskApp_SemanticVoidMachine
 This project is a Flask App that loads Keras models to both predict and classify values from the void machine we're working on
 
+### Based on
+[FlaskApp_LoadKerasModel_TeachableMachine](https://github.com/JuanIzquierdoDomenech/FlaskApp_LoadKerasModel_TeachableMachine)
+
 ## Installation
 1. Pull the code
 2. Create a Python environment and activate it
@@ -18,11 +21,6 @@ This project is a Flask App that loads Keras models to both predict and classify
 
 *e.g.*
 `python server.py`
-
-The server accepts an image via **POST**, adding the image as form-data with the key *imagefile*
-*e.g.*
-![Demo with Postman](images/postman_demo.png)
-
 
 ## Done
 - The models predicts the on/off state (classification) of the engine button
