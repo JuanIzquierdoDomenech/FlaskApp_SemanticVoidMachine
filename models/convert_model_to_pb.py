@@ -1,16 +1,11 @@
-# https://medium.com/@aneeshpanoli/how-to-use-a-pre-trained-tensorflow-keras-models-with-unity-ml-agents-bee9933ce3c1
-# https://github.com/llSourcell/Unity_ML_Agents/blob/master/docs/Using-TensorFlow-Sharp-in-Unity-(Experimental).md
-
 # usage
-# python convert_model_to_pb.py model_name.h5
+# python convert_model_to_pb.py model_name.h5 folder/to/save/
+
+# https://stackoverflow.com/questions/60005661/tensorflow-2-0-convert-keras-model-to-pb-file
 
 import sys
 
-import tensorflow
-from tensorflow.python.saved_model import builder as pb_builder
+import tensorflow as tf
 
-model = tensorflow.keras.models.load_model(sys.argv[1], compile=False)
-tensorflow.keras.backend.set_learning_phase(0)
-
-builder = pb_builder.SavedModelBuilder('pb/')
-builder.save()
+pre_model = tf.keras.models.load_model(sys.argv[1])
+pre_model.save(sys.argv[2] + "saved_model")
