@@ -25,7 +25,9 @@ This project is a Flask App that loads Keras models to both predict and classify
 ## Conversion to .onnx format
 
 This tool has been used to convert the Keras model (.h5) to Barracuda (.onnx)
-(tensorflow-onnx)[https://github.com/onnx/tensorflow-onnx]
+
+[tensorflow-onnx](https://github.com/onnx/tensorflow-onnx)
+
 Take into account the `onnx` version specified in `requirements.txt`, since installing `tf2onnx` installs the latest version, but I use 1.6.0 of `onnx` instead (just uninstall and install with `pip`)
 
 *e.g.* You can find the .onnx files for a model in models/classification/engine_button/saved_model
