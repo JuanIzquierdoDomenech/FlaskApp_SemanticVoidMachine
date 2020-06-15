@@ -1,6 +1,8 @@
 # FlaskApp_SemanticVoidMachine
 This project is a Flask App that loads Keras models to both predict and classify values from the void machine we're working on
 
+It also includes script utilities to convert from .h5 to saved model format (.pb) in order to convert it to .onnx format
+
 ### Based on
 [FlaskApp_LoadKerasModel_TeachableMachine](https://github.com/JuanIzquierdoDomenech/FlaskApp_LoadKerasModel_TeachableMachine)
 
@@ -32,6 +34,18 @@ Take into account the `onnx` version specified in `requirements.txt`, since inst
 
 *e.g.* You can find the .onnx files for a model in models/classification/engine_button/saved_model
 where both the .pb and .onnx files are stored.
+
+#### First of all, you have to convert the **.h5** file to **.pb**
+
+To do that, you can use the script `convert_model_to_pb.py` in the *models/* folder.
+
+*e.g.* `python convert_model_to_pb.py classification/engine_button/model.h5 classification/engine_button/`
+
+#### Then, you have to convert the **.pb** to **.onnx**
+
+You can use the following command:
+
+`python -m tf2onnx.convert --opset 10 --fold_const --saved-model classification/engine_button/saved_model --output classification/engine_button/saved_model/classification_engine_button.onnx`
 
 ## Done
 - The models predicts the on/off state (classification) of the engine button
