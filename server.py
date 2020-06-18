@@ -1,5 +1,6 @@
 from flask import Flask, request, Response
 import tensorflow.keras
+from tensorflow.keras.layers import LeakyReLU
 import jsonpickle
 from PIL import Image, ImageOps
 import numpy as np
@@ -10,7 +11,8 @@ all_labels = {}
 
 # Fills all_models and all_labels
 def load_models():
-	##### Classification model: Engine button on/off #####
+	##### 				Classification model: Engine button on/off 				#####
+
 	all_models['class:engine_button'] = tensorflow.keras.models.load_model('models/classification/engine_button/model.h5', compile=False)
 	labelsFile = "models/classification/engine_button/labels.txt"
 	labels = []
@@ -21,6 +23,13 @@ def load_models():
 			words = line.split()
 			labels.append(words[1])
 	all_labels['class:engine_button'] = labels
+
+	##### 				Regression model: Void needle [0,25] 					#####
+
+	all_models['reg:void_needle'] = tensorflow.keras.models.load_model('models/regression/void_needle/model.h5', compile=False, custom_objects={'LeakyReLU': LeakyReLU})
+
+
+##############################
 
 load_models()
 
@@ -57,6 +66,27 @@ def predict_class_eng_btn():
 
 	# Return the label
 	return all_labels['class:engine_button'][label_index]
+
+@app.route('/predict/regression/void_needle', methods=['POST'])
+def predict_reg_void_needle():
+	# Get the file from the POST request
+	imagefile = request.files.get('imagefile', '')
+	image = Image.open(imagefile).convert('L')
+
+	np.set_printoptions(suppress = True)
+
+	# Resize and normalize, as expected by the model
+	image = image.resize((100, 100), Image.ANTIALIAS)
+	image = np.array(image)
+
+	image = image/255.0
+	image = image.reshape((1, 100, 100, 1))
+
+	# Run the inference
+	prediction = all_models['reg:void_needle'].predict(image)
+
+	# Return the label
+	return str(int(prediction*25))
 
 if __name__ == '__main__':
 	# app.run(port=5000)			# Localhost on 127.0.0.1

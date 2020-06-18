@@ -24,6 +24,11 @@ It also includes script utilities to convert from .h5 to saved model format (.pb
 *e.g.*
 `python server.py`
 
+### Working with Postman
+The server accepts an image via **POST**, adding the image as form-data with the key *imagefile*
+*e.g.*
+![Demo with Postman](images/postman_demo.png)
+
 ## Conversion to .onnx format
 
 This tool has been used to convert the Keras model (.h5) to Barracuda (.onnx)
@@ -49,6 +54,4 @@ You can use the following command:
 
 ## Done
 - The models predicts the on/off state (classification) of the engine button
-
-## TODO
-- Training and loading the model to read void value needle (regression)
+- The models predicts the void value (regression)
