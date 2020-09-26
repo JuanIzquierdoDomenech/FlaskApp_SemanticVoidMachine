@@ -90,7 +90,7 @@ def predict_reg_void_needle():
 
 if __name__ == '__main__':
 	# app.run(port=5000)			# Localhost on 127.0.0.1
-	app.run(host='192.168.1.42')	# For local network access
+	app.run(host='192.168.1.53')	# Localhost for local network access (same public IP)
 
 
 
